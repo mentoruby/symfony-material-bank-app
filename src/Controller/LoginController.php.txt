@@ -1,0 +1,54 @@
+<?php
+namespace AppBundle\Controller;
+
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
+
+class LoginController extends Controller
+{
+    /**
+     * @Route("/", name="init")
+     * @Route("/login", name="login")
+     */
+    public function loginAction() 
+    {
+        $helper = $this->get('security.authentication_utils');
+        
+        $lastUsername = $helper->getLastUsername();
+        $error = $helper->getLastAuthenticationError();
+        return $this->render('page/login.html.twig', [
+            'username' => $lastUsername, 
+            'error' => $error
+        ]);
+    }
+
+    /**
+     * @Route("/login_check", name="security_login_check")
+     */
+    public function loginCheckAction()
+    {
+
+    }
+
+    /**
+     * @Route("/logout", name="logout")
+     */
+    public function logoutAction(Request $request, Response $response, TokenInterface $token)
+    {
+        $this->get('security.context')->setToken(null);
+        $request->getSession()->invalidate();
+        
+        // Clearing the cookies.
+        $cookieNames = [
+            $this->container->getParameter('session.name'),
+            $this->container->getParameter('session.remember_me.name'),
+        ];
+        foreach ($cookieNames as $cookieName) {
+            $response->headers->clearCookie($cookieName);
+        }
+    }
+}
+?>

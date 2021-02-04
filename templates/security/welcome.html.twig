@@ -1,0 +1,44 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+<div class="section no-pad-bot">
+  <div class="container">
+    <h1 class="header center orange-text">Main Menu</h1>
+    <div class="section light-blue-text">
+      <div class="row">
+        <div class="col m4 center">
+          <h5><i class="medium material-icons">assignment_ind</i></h5>
+          <h5>Account</h5>
+        </div>
+        <div class="col m4 center">
+          <h5><a href="/acc_open" class="btn-floating btn-large waves-effect waves-light"><i class="material-icons">add</i></a></h5>
+          <h5>Create New</h5>
+        </div>
+        <div class="col m4 center">
+          <h5><a href="/acc_list" class="btn-floating btn-large waves-effect waves-light"><i class="material-icons">assignment</i></a></h5>
+          <h5>Maintenance</h5>
+        </div>
+      </div>
+      <div class="divider"></div>
+      <div class="row">
+        <div class="col m4 center">
+          <h5><i class="medium material-icons">face</i></h5>
+          <h5>Login User</h5>
+        </div>
+        <div class="col m4 center">
+          <h5><a href="/user_open" class="btn-floating btn-large waves-effect waves-light"><i class="material-icons">add</i></a></h5>
+          <h5>Create New</h5>
+        </div>
+        <div class="col m4 center">
+          <h5><a href="/user_list" class="btn-floating btn-large waves-effect waves-light"><i class="material-icons">assignment</i></a></h5>
+          <h5>Maintenance</h5>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col m12 center">
+          <a href="/logout" class="waves-effect waves-light btn"><i class="material-icons">directions_run</i> Logout</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

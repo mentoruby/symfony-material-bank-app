@@ -1,0 +1,36 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+<div class="section no-pad-bot">
+  <div class="container">
+    <h1 class="header center orange-text">User Maintenance</h1>
+    <div class="section light-blue-text">
+      {% if users|length > 0 %}
+        <ul class="collection">
+          {% for user in users %}
+            <li class="collection-item avatar">
+              <i class="material-icons circle light-blue">contacts</i>
+              <span class="title">{{ user.showname }}</span>
+              <a href="/user_edit?username={{user.username}}" class="secondary-content btn chip">edit</a>
+            </li>
+          {% endfor %}
+        </ul>
+      {% else %}
+        <div class="row center">
+          <h5><i class="medium material-icons">sentiment_very_dissatisfied</i></h5>
+          <h5 class="header col s12 light red-text">No User!?</h5>
+        </div>
+      {% endif %}
+      <div class="row"></div>
+      <div class="row">
+        <div class="col s12">
+          <a href="/welcome" class="waves-effect waves-light btn left"><i class="material-icons">keyboard_backspace</i> Back to Main Menu</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
+{% block javascripts %}
+<script type="text/javascript">
+</script>
+{% endblock %}

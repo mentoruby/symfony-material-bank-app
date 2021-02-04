@@ -1,0 +1,172 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+<div class="section no-pad-bot">
+  <div class="container">
+    <h1 class="header center orange-text">Account Maintenance</h1>
+    <div class="section light-blue-text">
+      {% if accounts|length > 0 %}
+        {% for account in accounts %}
+          <div class="row" style="margin:0.5em">
+            <div class="col m2 center">
+              <div class="col s4">
+                <a href="/acc_edit?accountId={{account.accountId}}"><i class="material-icons">face</i></a>
+              </div>
+              <div class="col s4">
+                {{ account.accountName }}
+              </div>
+            </div>
+            <div class="col m2 center">
+              <button id="account_status_{{account.accountId}}" class="btn chip" onclick="changeStatus({{ account.accountId }})">{{ account.status }}</button>
+            </div>
+            <div class="col m2 center">
+              <button data-target="account_balance_check_{{account.accountId}}" class="btn chip modal-trigger">Balance</button>
+              <div id="account_balance_check_{{account.accountId}}" class="modal">
+                <div class="modal-content">
+                  <h4>Account Balance</h4>
+                  <table>
+                    <thead>
+                      <tr>
+                        <th>Currency</th>
+                        <th>Amount</th>
+                      </tr>
+                    </thead>
+                    <tbody id="account_balance_list_{{account.accountId}}"></tbody>
+                  </table>
+                </div>
+                <div class="modal-footer">
+                  <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Close</a>
+                </div>
+              </div>
+            </div>
+            <div class="col m2 center">
+              <a href="/fund_init?accountId={{account.accountId}}" class="btn chip">Cash In/Out</a>
+            </div>
+            <div class="col m2 center">
+              <button data-target="account_transaction_check_{{account.accountId}}" class="btn chip modal-trigger">Transactions</button>
+              <div id="account_transaction_check_{{account.accountId}}" class="modal">
+                <div class="modal-content">
+                  <h4>Account Transactions</h4>
+                  <div id="account_transaction_list_{{account.accountId}}"></div>
+                </div>
+                <div class="modal-footer">
+                  <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Close</a>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="divider"></div>
+        {% endfor %}
+      {% else %}
+        <div class="row center">
+          <h5><i class="medium material-icons">sentiment_very_dissatisfied</i></h5>
+          <h5 class="header col s12 light red-text">No Account</h5>
+        </div>
+      {% endif %}
+      <div class="row"></div>
+      <div class="row">
+        <div class="col s12">
+          <a href="/welcome" class="waves-effect waves-light btn left"><i class="material-icons">keyboard_backspace</i> Back to Main Menu</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
+{% block javascripts %}
+<script type="text/javascript">
+function changeStatus(accountId) {
+  var currentStatus = $('#account_status_'+accountId).html();
+  var action = 'activate';
+  if(currentStatus == 'Active') {
+    action = 'deactivate';
+  }
+  if(confirm('Are you sure to '+action+' this account?')) {
+    var data = {accountId: accountId};
+    $.ajax({
+     type: 'POST',
+     url: '/acc_change_status',
+     data: data,
+     dataType: 'json',
+     timeout: 3000,
+     success: function(response){
+        if(response==null || response.account==null || response.account.status==null || response.account.status.length<=0) {
+          this.error();
+        } else {
+          $('#account_status_'+accountId).html(response.account.status);
+          M.toast({html: 'Status is updated successfully!'});
+        }
+     },
+     error: function() {
+        M.toast({html: 'Fail to update status!'});
+     }
+    });
+  }
+}
+function showBalance(modalId) {
+  var accountId = modalId.replace("account_balance_check_", "");
+  var data = {accountId: accountId};
+  $.ajax({
+   type: 'POST',
+   url: '/acc_bal',
+   data: data,
+   dataType: 'json',
+   timeout: 3000,
+   success: function(response){
+    if(response!=null && response.balances!=null && response.balances.length > 0) {
+      var content = '';
+      for(var i=0; i<response.balances.length; i++) {
+        content += '<tr><td>'+response.balances[i].currency+'</td><td>'+response.balances[i].amount+'</td></tr>';
+      }
+      
+      $('#account_balance_list_'+accountId).html(content);
+    } else {
+      $('#account_balance_list_'+accountId).html('<tr><td colspan="2" class="center">No Balance</td></tr>');
+    }
+   },
+   error: function() {
+      M.toast({html: 'Fail to show balances!'});
+   }
+  });
+}
+function showTransactions(modalId) {
+  var accountId = modalId.replace("account_transaction_check_", "");
+  var data = {accountId: accountId};
+  $.ajax({
+   type: 'POST',
+   url: '/acc_tran',
+   data: data,
+   dataType: 'html',
+   timeout: 3000,
+   success: function(response){
+    $('#account_transaction_list_'+accountId).html(response);
+   },
+   error: function() {
+      M.toast({html: 'Fail to show transactions!'});
+   }
+  });
+}
+$(document).ready(function() {
+  // Initialize popup dialog
+  var modal = document.querySelectorAll('.modal');
+  if(modal!=null) {
+    modal.forEach(function(ele) {
+      if(ele.id.startsWith("account_balance_check_")) {
+        M.Modal.init(ele, {
+          onOpenStart: function(model, trigger) {
+            showBalance(this.id);
+          }
+        });
+      }
+      else if(ele.id.startsWith("account_transaction_check_")) {
+        M.Modal.init(ele, {
+          onOpenStart: function(model, trigger) {
+            showTransactions(this.id);
+          }
+        });
+      }
+    });
+  }
+  
+});
+</script>
+{% endblock %}

@@ -1,0 +1,67 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+<div class="section no-pad-bot">
+  <div class="container">
+    <h1 class="header center orange-text">Cash In &#x2F; Out</h1>
+    {% if form.vars.errors|length > 0 %}
+      <div class="row center">
+        <h5 class="header col s12 light red-text">{{ form_errors(form) }}</h5>
+      </div>
+    {% endif %}
+    {% for msg in app.session.flashBag.get('success') %}
+      <div class="row center">
+        <h5 class="header col s12 light">{{ msg }}</h5>
+      </div>
+    {% endfor %}
+    <div class="row">
+      <table>
+        <thead>
+          <tr>
+            <th>Currency</th>
+            <th>Amount</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% if balances|length > 0 %}
+            {% for balance in balances %}
+              <tr><td>{{ balance.currency }}</td><td>{{ balance.amount }}</td></tr>
+            {% endfor %}
+          {% else %}
+            <tr><td colspan="2" class="center">No Balance</td></tr>
+          {% endif %}
+        </tbody>
+      </table>
+    </div>
+    {{ form_start(form, {'action': path('fund_transfer'), 'method': 'POST'}) }}
+      <div class="row">
+        <div class="input-field col s4">
+          {{ form_widget(form.currency) }}
+          {{ form_label(form.currency) }}
+          {{ form_errors(form.currency) }}
+        </div>
+        <div class="input-field col s4">
+          {{ form_widget(form.amount) }}
+          {{ form_label(form.amount) }}
+          {{ form_errors(form.amount) }}
+        </div>
+        <div class="input-field col s4">
+          {{ form_widget(form.transferType) }}
+          {{ form_label(form.transferType) }}
+          {{ form_errors(form.transferType) }}
+        </div>
+      </div>
+      
+      <div class="row">
+        <div class="col s12 right">
+          <button class="btn waves-effect waves-light right" type="submit" name="action">Submit <i class="material-icons right">send</i></button>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col s12">
+          <a href="/acc_list" class="waves-effect waves-light btn left"><i class="material-icons">keyboard_backspace</i> Back to Account Maintenance</a>
+        </div>
+      </div>
+    {{ form_end(form) }}
+  </div>
+</div>
+{% endblock %}

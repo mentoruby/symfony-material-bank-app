@@ -1,0 +1,35 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+    <div class="section no-pad-bot">
+      <div class="container">
+        <br><br>
+        <h1 class="header center orange-text">Login</h1>
+        {% if error %}
+          <div class="row center">
+              <h5 class="header col s12 light red-text">{{ error.messageKey|trans(error.messageData, 'security') }}</h5>
+          </div>
+        {% endif %}
+        <div class="row center">
+          <form class="col s12" action="{{ path('app_login') }}" method="POST">
+            <div class="row">
+              <div class="input-field col s12">
+                <input id="username" name="username" type="text" class="validate" value="{{ username }}">
+                <label for="username">Username</label>
+              </div>
+            </div>
+            <div class="row">
+              <div class="input-field col s12">
+                <input id="password" name="password" type="password" class="validate">
+                <label for="password">Password</label>
+              </div>
+            </div>
+            <div class="row">
+                <button class="btn waves-effect waves-light" type="submit" name="action">
+                  Login <i class="material-icons right">send</i>
+                </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+{% endblock %}

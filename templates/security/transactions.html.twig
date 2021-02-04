@@ -1,0 +1,28 @@
+<table>
+  <thead>
+    <tr>
+      <th>Txn ID</th>
+      <th>Date</th>
+      <th>Time</th>
+      <th>Txn Type</th>
+      <th>Currency</th>
+      <th>Amount</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% if transactions|length > 0 %}
+      {% for transaction in transactions %}
+        <tr>
+          <td>{{ transaction.tranId }}</td>
+          <td>{{ transaction.tranDate }}</td>
+          <td>{{ transaction.tranTime }}</td>
+          <td>{{ transaction.tranType }}</td>
+          <td>{{ transaction.tranCurr }}</td>
+          <td>{{ transaction.tranAmount }}</td>
+        </tr>
+      {% endfor %}
+    {% else %}
+      <tr><td colspan="6" class="center">No Transaction</td></tr>
+    {% endif %}
+  </tbody>
+</table>
