@@ -1,12 +1,15 @@
-# Symfony Simple Bank Application
+# Symfony Simple Bank Application :classical_building: :moneybag:
 This project is a simple application created to handle basic financial transactions, i.e. user and account opening, cash deposit, cash withdrawal and summary of transactions.
 
 Little Story: This project was initially developed in 2017 using PHP 7.1.9 and Symfony 3.4.1. I recently converted it to be supported by PHP 8.0.1 and Symfony 5.2.2. Some libraries are deprecrated such as `sensio/framework-extra-bundle`.
 
 ## Requirements :star:
-* **[Apache Server 2](#Install-Apache-Server)**<br/>*(I used Apache 2.4.41 during development)*
-* **[PHP 7.2.5 or higher](#Install-PHP)**<br/>*(I used PHP 8.0.1 during development)*
-* **Symfony Framwork 5.2 or higher**<br/>*(I used **[Composer 2.0.9](#Install-Composer)** to help downloading and managing packages and their dependencies easily.)*
+* **[Apache Server 2](#install-apache-server-globe_with_meridians)**
+<br/>*(I used Apache 2.4.41 during development)*
+* **[PHP 7.2.5 or higher](#install-php-computer)**
+<br/>*(I used PHP 8.0.1 during development)*
+* **Symfony Framwork 5.2 or higher**
+<br/>*(I used **[Composer 2.0.9](#install-composer-hammer_and_wrench)** to help downloading and managing packages and their dependencies easily.)*
 
 ## No Database Setup :floppy_disk:
 The project is relying on Apache Server, Symfony PHP and Twig only. It has not yet connected to any database. Currently, I simply use CSV files in `/src/Data` to store data such as users, accounts, transactions, etc..
@@ -16,7 +19,7 @@ The project is relying on Apache Server, Symfony PHP and Twig only. It has not y
 sudo apt install -y apache2
 ```
 You can use systemctl to start, stop, enable, reload or restart it.
-```bash
+```
 sudo systemctl start apache2
 sudo systemctl stop apache2
 sudo systemctl enable apache2
