@@ -138,6 +138,13 @@ sudo systemctl restart apache2
 ## Usage :v:
 Finally, you can access the application at URL <http://localhost:8080> or <http://localhost:8080/login>. :sunglasses:
 
+## Sceenshots :national_park:
+![Login](./public/samples/login.jpg)
+![Main](./public/samples/main.jpg)
+![User Maintenance](./public/samples/user_maintenance.jpg)
+![User Opening](./public/samples/user_open.jpg)
+![Account Maintenance](./public/samples/account_maintenance.jpg)
+![Account Opening](./public/samples/account_open.jpg)
 
 # Reference Websites :thumbsup:
 * https://httpd.apache.org/
