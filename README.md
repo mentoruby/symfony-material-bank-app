@@ -16,7 +16,7 @@ The project is relying on Apache Server, Symfony PHP and Twig only. It has not y
 
 ## Setup by Docker :movie_camera:
 You can follow the installation guide below step by step to setup this project.<br>
-Or you can install [docker engine](https://docs.docker.com/engine/install/ubuntu/), and then use the `Dockerfile` provided in this repo to build the project image. The Dockerfile is written based on Ubuntu. After `docker build` command is run successfully, run below command to start up the project container.
+Or you can install [docker engine](https://docs.docker.com/engine/install/ubuntu/), and then use the `Dockerfile` provided in this repo to build the project image. The Dockerfile is written based on Ubuntu. After [docker build](https://docs.docker.com/engine/reference/builder/) command is run successfully, run below command to start up the project container.
 
 ```bash
 docker run -p 8081:8081 -dt --name mycontainer myappcompose
@@ -173,3 +173,6 @@ Finally, you can access the application at URL <http://localhost:8081> or <http:
 * https://websiteforstudents.com/how-to-install-symfony-5-framework-on-ubuntu-18-04-16-04-with-apache2/
 * https://www.scalyr.com/blog/getting-started-quickly-symfony-logging
 * https://docs.docker.com/engine/install/
+* https://docs.docker.com/engine/reference/builder/
+* https://dockerlabs.collabnix.com/docker/cheatsheet/
+* https://docs.docker.com/develop/develop-images/multistage-build/
