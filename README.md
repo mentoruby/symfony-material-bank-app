@@ -47,9 +47,12 @@ sudo apt install php8.0-curl
 sudo apt install php8.0-common
 sudo apt install php8.0-mbstring
 ```
-Enable the Apache php8.0 module then restart Apache Web server.
+Enable PHP module in Apache<br>
+Enable rule-based rewriting engine, so URLs can be re-mapped on the fly of requesting<br>
+After all, restart Apache Web server
 ```bash
 sudo a2enmod php8.0
+sudo a2enmod rewrite
 sudo systemctl restart apache2
 ```
 Check PHP version:
