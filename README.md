@@ -1,7 +1,7 @@
 # Symfony Simple Bank Application :classical_building: :moneybag:
 This project is a simple application created to handle basic financial transactions, i.e. user and account opening, cash deposit, cash withdrawal and summary of transactions.
 
-Little Story: This project was initially developed in 2017 using PHP 7.1.9 and Symfony 3.4.1. I recently converted it to be supported by PHP 8.0.1 and Symfony 5.2.2. Some libraries are deprecrated such as `sensio/framework-extra-bundle`.
+:feet: Little Story: This project was initially developed in 2017 using PHP 7.1.9 and Symfony 3.4.1. I recently converted it to be supported by PHP 8.0.1 and Symfony 5.2.2. Some libraries are deprecrated such as `sensio/framework-extra-bundle`.
 
 ## Requirements :star:
 * **[Apache Server 2](#install-apache-server-globe_with_meridians)**
@@ -13,6 +13,17 @@ Little Story: This project was initially developed in 2017 using PHP 7.1.9 and S
 
 ## No Database Setup :floppy_disk:
 The project is relying on Apache Server, Symfony PHP and Twig only. It has not yet connected to any database. Currently, I simply use CSV files in `/src/Data` to store data such as users, accounts, transactions, etc..
+
+## Setup by Docker :movie_camera:
+You can follow the installation guide below step by step to setup this project.<br>
+Or you can install [docker engine](https://docs.docker.com/engine/install/ubuntu/), and then use the `Dockerfile` provided in this repo to build the project image. The Dockerfile is written based on Ubuntu. After `docker build` command is run successfully, run below command to start up the project container.
+
+```bash
+docker run -p 8081:8081 -dt --name mycontainer myappcompose
+```
+`-p`: expose container port or a range of ports to the host interfaces<br>
+`-dt`: detached, use terminal driver, send the process to the background, start it in a terminal connection session<br>
+`--name`: name of container based on docker image
 
 ## Install Apache Server :globe_with_meridians:
 ```bash
@@ -100,9 +111,9 @@ Create Apahce2 site configuration file:
 ```bash
 sudo nano /etc/apache2/sites-available/symfony-material-bank-app.conf
 ```
-Save below settings into the file. I assume this application is accessed through port **8080**.
+Save below settings into the file. I assume this application is accessed through port **8081**.
 ```aconf
-<VirtualHost *:8080>
+<VirtualHost *:8081>
      ServerAdmin webmaster@localhost
      DocumentRoot /var/www/symfony-material-bank-app/public
 
@@ -130,7 +141,7 @@ sudo nano /etc/apache2/ports.conf
 ```
 Add new listening port into the file.
 ```aconf
-Listen 8080
+Listen 8081
 ```
 Enable the new VirtualHost config and restart Apache to make it effective.
 ```bash
@@ -139,7 +150,7 @@ sudo systemctl restart apache2
 ```
 
 ## Usage :v:
-Finally, you can access the application at URL <http://localhost:8080> or <http://localhost:8080/login>. :sunglasses:
+Finally, you can access the application at URL <http://localhost:8081> or <http://localhost:8081/login>. :sunglasses:
 
 ## Sceenshots :national_park:
 ![Login](./public/samples/login.jpg)
@@ -161,4 +172,4 @@ Finally, you can access the application at URL <http://localhost:8080> or <http:
 * https://www.linuxbabe.com/ubuntu/install-lamp-stack-ubuntu-20-04-server-desktop
 * https://websiteforstudents.com/how-to-install-symfony-5-framework-on-ubuntu-18-04-16-04-with-apache2/
 * https://www.scalyr.com/blog/getting-started-quickly-symfony-logging
-
+* https://docs.docker.com/engine/install/
